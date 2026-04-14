@@ -1,0 +1,338 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Cocos Creator 发布工具配置",
+    "description": "Cocos Creator 微信小游戏打包工具的配置文件 Schema",
+    "type": "object",
+    "properties": {
+        "creator": {
+            "type": "object",
+            "description": "Cocos Creator 配置",
+            "properties": {
+                "path": {
+                    "type": "string",
+                    "description": "Cocos Creator 可执行文件路径",
+                    "examples": [
+                        "/Applications/Cocos/Creator/2.4.15/CocosCreator.app/Contents/MacOS/CocosCreator",
+                        "C:\\Program Files\\CocosCreator\\CocosCreator.exe"
+                    ]
+                }
+            },
+            "required": ["path"]
+        },
+        "build": {
+            "type": "object",
+            "description": "构建配置",
+            "properties": {
+                "outputPath": {
+                    "type": "string",
+                    "description": "构建产物输出路径（相对于项目根目录）",
+                    "default": "../build"
+                },
+                "projectName": {
+                    "type": "string",
+                    "description": "微信小游戏项目目录名",
+                    "default": "wechatgame"
+                },
+                "remoteDirName": {
+                    "type": "string",
+                    "description": "远程资源目录名",
+                    "default": "remote"
+                },
+                "md5Cache": {
+                    "type": "boolean",
+                    "description": "是否启用 MD5 缓存",
+                    "default": true
+                },
+                "startSceneAssetBundle": {
+                    "type": "boolean",
+                    "description": "是否启用 start-scene 资源包",
+                    "default": true
+                }
+            }
+        },
+        "buildCopy": {
+            "type": "object",
+            "description": "构建副本配置",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "是否启用副本模式",
+                    "default": true
+                },
+                "rootPath": {
+                    "type": "string",
+                    "description": "副本存放根目录"
+                },
+                "folderName": {
+                    "type": "string",
+                    "description": "副本文件夹名前缀"
+                },
+                "excludes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "排除的文件/目录"
+                }
+            }
+        },
+        "cdn": {
+            "type": "object",
+            "description": "CDN 配置",
+            "properties": {
+                "default": {
+                    "type": "string",
+                    "description": "默认 CDN 地址"
+                }
+            }
+        },
+        "pngquant": {
+            "type": "object",
+            "description": "PNG 压缩配置",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "是否启用压缩"
+                },
+                "quality": {
+                    "type": "string",
+                    "description": "压缩质量范围",
+                    "default": "80-100"
+                },
+                "binary": {
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "description": "统一路径"
+                        },
+                        {
+                            "type": "object",
+                            "description": "各平台路径",
+                            "properties": {
+                                "darwin": {
+                                    "type": "string",
+                                    "description": "macOS 路径"
+                                },
+                                "win32": {
+                                    "type": "string",
+                                    "description": "Windows 路径"
+                                },
+                                "linux": {
+                                    "type": "string",
+                                    "description": "Linux 路径"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "ignoreResources": {
+            "type": "object",
+            "description": "忽略资源配置",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "是否启用"
+                },
+                "paths": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "要忽略的路径列表"
+                },
+                "stashRoot": {
+                    "type": "string",
+                    "description": "忽略资源的备份目录"
+                }
+            }
+        },
+        "textureCompression": {
+            "type": "object",
+            "description": "纹理压缩格式配置",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "是否启用"
+                },
+                "rules": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "description": "规则名称"
+                            },
+                            "paths": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "description": "目标路径"
+                            },
+                            "formats": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "enum": ["astc_4x4", "astc_5x5", "astc_6x6", "astc_8x8", "etc", "pvrtc", "png"],
+                                            "description": "压缩格式"
+                                        },
+                                        "quality": {
+                                            "type": "string",
+                                            "enum": ["fast", "normal", "thorough", "exhaustive"],
+                                            "description": "压缩质量"
+                                        }
+                                    },
+                                    "required": ["name"]
+                                }
+                            }
+                        },
+                        "required": ["paths", "formats"]
+                    }
+                }
+            }
+        },
+        "splitStartScene": {
+            "type": "object",
+            "description": "start-scene 脚本拆分配置",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "是否启用拆分",
+                    "default": true
+                }
+            }
+        },
+        "firstScreenPlugin": {
+            "type": "object",
+            "description": "首屏插件配置",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "是否启用"
+                },
+                "sourcePath": {
+                    "type": "string",
+                    "description": "插件源目录"
+                }
+            }
+        },
+        "wechat": {
+            "type": "object",
+            "description": "微信配置",
+            "properties": {
+                "cliPath": {
+                    "type": "string",
+                    "description": "微信开发者工具 CLI 路径"
+                },
+                "uploadOptions": {
+                    "type": "object",
+                    "description": "上传选项",
+                    "properties": {
+                        "libVersion": {
+                            "type": "string",
+                            "description": "基础库版本"
+                        },
+                        "urlCheck": {
+                            "type": "boolean",
+                            "description": "是否校验域名"
+                        },
+                        "minified": {
+                            "type": "boolean",
+                            "description": "是否压缩代码"
+                        },
+                        "es6": {
+                            "type": "boolean",
+                            "description": "是否启用 ES6"
+                        },
+                        "enhance": {
+                            "type": "boolean",
+                            "description": "是否启用增强编译"
+                        }
+                    }
+                }
+            }
+        },
+        "oss": {
+            "type": "object",
+            "description": "阿里云 OSS 配置",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "是否启用"
+                },
+                "accessKeyId": {
+                    "type": "string",
+                    "description": "AccessKey ID"
+                },
+                "accessKeySecret": {
+                    "type": "string",
+                    "description": "AccessKey Secret"
+                },
+                "endpoint": {
+                    "type": "string",
+                    "description": "OSS endpoint"
+                },
+                "bucketName": {
+                    "type": "string",
+                    "description": "Bucket 名称"
+                },
+                "remotePath": {
+                    "type": "object",
+                    "properties": {
+                        "dev": {
+                            "type": "string",
+                            "description": "开发环境路径"
+                        },
+                        "prod": {
+                            "type": "string",
+                            "description": "生产环境路径"
+                        }
+                    }
+                }
+            }
+        },
+        "feishu": {
+            "type": "object",
+            "description": "飞书通知配置",
+            "properties": {
+                "appId": {
+                    "type": "string",
+                    "description": "飞书应用 AppId"
+                },
+                "appSecret": {
+                    "type": "string",
+                    "description": "飞书应用 AppSecret"
+                },
+                "webhook": {
+                    "type": "string",
+                    "description": "飞书机器人 Webhook 地址"
+                },
+                "qrcodeTemplateId": {
+                    "type": "string",
+                    "description": "二维码卡片模板 ID"
+                },
+                "qrcodeTemplateVersion": {
+                    "type": "string",
+                    "description": "二维码卡片模板版本"
+                }
+            }
+        },
+        "upload": {
+            "type": "object",
+            "description": "上传配置",
+            "properties": {
+                "workers": {
+                    "type": "integer",
+                    "description": "并发线程数",
+                    "default": 8
+                }
+            }
+        }
+    }
+}

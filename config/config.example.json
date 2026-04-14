@@ -1,0 +1,127 @@
+{
+    "$schema": "./config_schema.json",
+
+    "creator": {
+        "path": "/Applications/Cocos/Creator/2.4.15/CocosCreator.app/Contents/MacOS/CocosCreator",
+        "comment_win": "Windows 示例: C:\\Program Files\\CocosCreator\\CocosCreator.exe"
+    },
+
+    "build": {
+        "outputPath": "../build",
+        "projectName": "wechatgame",
+        "remoteDirName": "remote",
+        "md5Cache": true,
+        "startSceneAssetBundle": true
+    },
+
+    "buildCopy": {
+        "enabled": true,
+        "rootPath": "~/Downloads",
+        "folderName": "build_copy",
+        "excludes": [
+            ".git",
+            "node_modules"
+        ]
+    },
+
+    "cdn": {
+        "default": "",
+        "devPrefix": "http://{ip}:16333",
+        "devInterface": ["172.", "192."]
+    },
+
+    "pngquant": {
+        "enabled": false,
+        "quality": "80-100",
+        "binary": {
+            "darwin": "bin/pngquant/pngquant_mac",
+            "win32": "bin/pngquant/pngquant.exe"
+        }
+    },
+
+    "ignoreResources": {
+        "enabled": true,
+        "paths": [
+            "assets/Texture/main/map_ignore",
+            "assets/sceneEditor"
+        ],
+        "stashRoot": "temp/publish_res_ignore_stash"
+    },
+
+    "textureCompression": {
+        "enabled": false,
+        "rules": [
+            {
+                "name": "subpackage_compressed",
+                "paths": ["assets/subpackage", "assets/remotepackage/mapChunks_1"],
+                "formats": [
+                    {
+                        "name": "astc_6x6",
+                        "quality": "exhaustive"
+                    }
+                ]
+            },
+            {
+                "name": "texture_normal",
+                "paths": ["assets/Texture", "assets/remotepackage/pieces"],
+                "formats": [
+                    {
+                        "name": "astc_4x4",
+                        "quality": "exhaustive"
+                    }
+                ]
+            }
+        ]
+    },
+
+    "textureCompressionForDebug": {
+        "enabled": false,
+        "rules": []
+    },
+
+    "splitStartScene": {
+        "enabled": true
+    },
+
+    "firstScreenPlugin": {
+        "enabled": false,
+        "sourcePath": "build-temp/wechatgame"
+    },
+
+    "feishu": {
+        "appId": "",
+        "appSecret": "",
+        "webhook": "",
+        "qrcodeTemplateId": "",
+        "qrcodeTemplateVersion": ""
+    },
+
+    "wechat": {
+        "cliPath": "/Applications/wechatwebdevtools.app/Contents/MacOS/cli",
+        "comment_cli_win": "Windows 示例: C:\\Program Files\\Tencent\\微信开发者工具\\cli.bat",
+        "uploadOptions": {
+            "libVersion": "latest",
+            "urlCheck": true,
+            "minified": true,
+            "es6": false,
+            "enhance": false,
+            "swc": true
+        }
+    },
+
+    "oss": {
+        "enabled": false,
+        "accessKeyId": "",
+        "accessKeySecret": "",
+        "endpoint": "oss-cn-beijing.aliyuncs.com",
+        "bucketName": "",
+        "remotePath": {
+            "dev": "dev/remote_assets",
+            "prod": "prod/remote_assets"
+        }
+    },
+
+    "upload": {
+        "workers": 8
+    }
+}
